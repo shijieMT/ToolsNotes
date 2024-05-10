@@ -7,4 +7,4 @@
 > 控制面板->程序->启动或关闭windows功能->勾选“适用于Linux的Windows”->重启电脑  
 > 打开ubuntu，等待安装结束
 ### 安装Docker
-[进入Linux的Docker安装](docker_linux.md)
+[知乎Docker安装](https://zhuanlan.zhihu.com/p/441965046)
