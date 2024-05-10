@@ -24,6 +24,7 @@ docker images
 ```
 ### start and stop
 ```shell
+# 这里使用的名字“ng”是自己run时添加的name选项“--name=ng”
 docker stop ng
 # 运行之后可用docker ps查看，运行的Nginx已经关闭
 docker start ng
