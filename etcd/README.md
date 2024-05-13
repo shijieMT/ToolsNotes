@@ -1,4 +1,4 @@
-# etcd
+# etcd了解及安装
 ## 了解etcd
 > etcd是一个分布式的键值存储系统,常用于服务发现、配置共享、分布式锁等场景。
 ### 服务发现
@@ -23,19 +23,32 @@
 5. 易用性:etcd提供了RESTful API和gRPC API,方便不同语言的客户端进行调用。etcd还提供了命令行工具etcdctl,可以方便地进行数据操作和集群管理。
 6. 丰富的特性:除了基本的键值存储功能,etcd还支持TTL(Time To Live)、事务、多版本控制等特性,满足了不同场景下的需求。
 7. 活跃的社区:etcd由CoreOS(已被Red Hat收购)开源,拥有活跃的社区和广泛的用户基础。许多知名项目如Kubernetes、Rook、Vitess等都依赖etcd进行服务发现和配置管理。
-## 安装etcd
-### windows
+## windows安装etcd
+### 下载
 [github发布界面](https://github.com/etcd-io/etcd/releases)
 > 安装后添加环境变量，例如：C:\etcd
 > 验证是否安装成功
 > ```shell
 > etcd --version
 > ```
-todo
-### Linux todo
+### 启动etcd
+> [!WARNNING]
+> 不管哪种方式启动etcd，要把启动窗口保留下来，不然后续输入命令无法执行
+1. shell启动
+```shell
+etcd.exe --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://0.0.0.0:2379
+```
+2. 点击etcd.exe启动
+### 查看etcd是否启动成功（确定成功可以忽略）
+使用endpoint health命令来检查etcd服务的健康状态，健康则可以使用
+```shell
+etcdctl --write-out=table endpoint health
+```
+## Linux todo
 [源码安装](https://blog.csdn.net/Mr_XiMu/article/details/127923827)
 yum安装,版本一般比较老
-### Docker todo
+## Docker todo
 ```shell
 docker run --name etcd -d -p 2379:2379 -p 2380:2380 -e ALLOW_NONE_AUTHENTICATION=yes bitnami/etcd:3.3.11 etcd 
 ```
+
