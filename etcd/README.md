@@ -25,11 +25,17 @@
 7. 活跃的社区:etcd由CoreOS(已被Red Hat收购)开源,拥有活跃的社区和广泛的用户基础。许多知名项目如Kubernetes、Rook、Vitess等都依赖etcd进行服务发现和配置管理。
 ## 安装etcd
 ### windows
-[win-etcd](https://github.com/etcd-io/etcd/releases)
-### Linux
+[github发布界面](https://github.com/etcd-io/etcd/releases)
+> 安装后添加环境变量，例如：C:\etcd
+> 验证是否安装成功
+> ```shell
+> etcd --version
+> ```
+todo
+### Linux todo
 [源码安装](https://blog.csdn.net/Mr_XiMu/article/details/127923827)
 yum安装,版本一般比较老
-### Docker
+### Docker todo
 ```shell
 docker run --name etcd -d -p 2379:2379 -p 2380:2380 -e ALLOW_NONE_AUTHENTICATION=yes bitnami/etcd:3.3.11 etcd 
 ```
