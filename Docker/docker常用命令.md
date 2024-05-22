@@ -16,9 +16,10 @@ docker run -itd -p 81:80 --name=ng nginx:latest
 
 ### 列出本地镜像、列出正在运行的容器
 ```shell
-# 列出正在运行的容器
+# 列出正在运行的容器（-a或-all）
+docker ps -a
+# 列出所有容器(包含未运行)
 docker ps
-
 # 列出本地镜像
 docker images
 ```
