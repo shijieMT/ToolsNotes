@@ -31,8 +31,13 @@ docker stop ng
 docker start ng
 # 运行之后可用docker ps查看，运行的Nginx已经开启，不需要重新run
 ```
-
-
+### 删除镜像与容器
+```shell
+# 删除镜像
+docker rmi image_id_or_name
+# 删除容器（容器处于stop状态后执行）
+docker rm container_id_or_name
+```
 
 
 
