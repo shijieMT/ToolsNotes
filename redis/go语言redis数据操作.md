@@ -32,6 +32,8 @@ func main() {
 	// RedisHash()
 	// RedisSet()
 	// RedisZSet()
+	// RedisPipeLine()
+	// RedisWatch()
 }
 ~~~
 ## list列表操作
@@ -84,3 +86,80 @@ fmt.Println(DB.ZRevRangeByScore("zset", redis.ZRangeBy{Min: "70", Max: "100"}).V
 fmt.Println(DB.ZRangeWithScores("zset", 0, -1).Val())
 }
 ~~~
+
+## 事务操作
+~~~go
+func RedisPipeLine() {
+	//方法一
+	{
+		// 使用 Pipelined 执行事务
+		_, err := DB.Pipelined(func(pipe redis.Pipeliner) error {
+			// 在事务中执行命令
+			pipe.Set("key1", "value1", 0)
+			pipe.Set("key2", "value2", 0)
+			pipe.Incr("counter")
+			return nil
+		})
+		if err != nil {
+			fmt.Println("事务执行失败:", err)
+		} else {
+			fmt.Println("事务执行成功")
+		}
+		// 获取事务中的值
+		val1, _ := DB.Get("key1").Result()
+		val2, _ := DB.Get("key2").Result()
+		counter, _ := DB.Get("counter").Int64()
+
+		fmt.Println("key1:", val1)
+		fmt.Println("key2:", val2)
+		fmt.Println("counter:", counter)
+	}
+	// 方法二
+	{
+		// 开始事务
+		tx := DB.TxPipeline()
+
+		// 在事务中执行命令
+		tx.Set("key1", "value1", 0)
+		tx.Set("key2", "value2", 0)
+		tx.Incr("counter")
+
+		// 执行事务
+		_, err := tx.Exec()
+		if err != nil {
+			fmt.Println("事务执行失败:", err)
+		} else {
+			fmt.Println("事务执行成功")
+		}
+
+		// 获取事务中的值
+		val1, _ := DB.Get("key1").Result()
+		val2, _ := DB.Get("key2").Result()
+		counter, _ := DB.Get("counter").Int64()
+
+		fmt.Println("key1:", val1)
+		fmt.Println("key2:", val2)
+		fmt.Println("counter:", counter)
+	}
+}
+~~~
+## watch命令
+~~~go
+func RedisWatch() {
+	DB.Watch(func(tx *redis.Tx) error {
+		_, err := tx.Pipelined(func(pipe redis.Pipeliner) error {
+			pipe.Set("price", 100, 0)
+			return nil
+		})
+		if err != nil {
+			fmt.Println("事务不成功")
+			return err
+		}
+		fmt.Println(tx.Get("price").Int())
+		return nil
+	}, "price")
+}
+~~~
+
+
+
