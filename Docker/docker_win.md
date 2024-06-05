@@ -2,6 +2,11 @@
 # Windows 安装与使用 Docker
 ## 安装Docker
 ### 安装WSL
+[win10家庭版命令行开启虚拟化](https://www.cnblogs.com/Attempts-blog/p/14720757.html)
+[Windows开启 CPU 虚拟化 + 关闭 Hyper-V](https://blog.csdn.net/u014727709/article/details/126538711)
+以管理员身份打开终端 运行命令
+开启：bcdedit /set hypervisorlaunchtype auto 然后重启
+安装Ubuntu：
 > 在微软商店中搜索ubuntu，安装  
 > 确保电脑开启虚拟化  
 > 控制面板->程序->启动或关闭windows功能->勾选“适用于Linux的Windows”->重启电脑  
@@ -9,7 +14,6 @@
 ### 安装Docker
 > [!TIP]
 > Docker环境正常运行的前提是WSL2子系统正在运行，若处于Stop状态，Docker检测不到可用WSL2，会提示需要安装WSL2  
-[知乎Docker安装](https://zhuanlan.zhihu.com/p/441965046)
 ### 配置镜像（registry-mirrors）
 > Settings -> Docker Engine
 ```json
