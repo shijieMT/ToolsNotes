@@ -8,6 +8,7 @@
 查看虚拟化开启状态命令：systeminfo  
 开启：bcdedit /set hypervisorlaunchtype auto 然后重启计算机  
 安装Ubuntu：  
+> wsl --set-default-version 2  
 > 在微软商店中搜索ubuntu，安装  
 > 确保电脑开启虚拟化  
 > 控制面板->程序->启动或关闭windows功能->勾选“适用于Linux的Windows”->重启电脑  
