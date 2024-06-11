@@ -20,6 +20,9 @@
 > Settings -> Docker Engine
 ```json
 {
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://docker.chenby.cn"
+  ]
 }
 ```
