@@ -40,7 +40,7 @@ docker rm container_id_or_name
 ```
 ### 进入容器命令行
 ```shell
-C:\Users\shiji>docker exec deploy-mysql-1  /bin/bash
+C:\Users\shiji>docker exec -it deploy-mysql-1 /bin/bash
 ```
 
 
