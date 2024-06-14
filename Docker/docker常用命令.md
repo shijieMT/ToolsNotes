@@ -38,6 +38,9 @@ docker rmi image_id_or_name
 # 删除容器（容器处于stop状态后执行）
 docker rm container_id_or_name
 ```
-
+### 进入容器命令行
+```shell
+C:\Users\shiji>docker exec deploy-mysql-1  /bin/bash
+```
 
 
