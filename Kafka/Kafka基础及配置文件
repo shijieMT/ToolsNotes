@@ -1,0 +1,104 @@
+# Kafka
+
+
+
+# 简单介绍
+
+以下是一些Kafka中的关键术语：
+
+1. **主题（Topic）**：这是Kafka中的核心概念之一。主题是消息的类别或名称，Kafka中的消息会被发布到某个主题中。一个主题可以有多个分区。
+
+2. **分区（Partition）**：每个主题可以分为多个分区。分区是Kafka中的并行处理单元，每个分区是一个有序的、不可变的消息序列。分区使得Kafka能够扩展和提供高吞吐量。
+
+3. **副本（Replica）**：每个分区有多个副本，这些副本分布在不同的Kafka代理（broker）上，以提高可用性和容错性。
+
+4. **生产者（Producer）**：生产者是向Kafka主题发布消息的客户端。
+
+5. **消费者（Consumer）**：消费者是从Kafka主题订阅和读取消息的客户端。
+
+6. **代理（Broker）**：Kafka集群中的每个服务器称为一个代理。代理接收来自生产者的数据，并为消费者提供数据。
+
+   go-zero文档中的kafka
+
+```yaml
+Name: kq
+Brokers:
+- 127.0.0.1:19092
+- 127.0.0.1:19093
+- 127.0.0.1:19094
+Group: foo
+Topic: test
+Offset: first
+Consumers: 1
+```
+
+1. **Name: kq**
+
+   - 这是配置的名称，可能是用户自定义的，用于标识这个消费者配置。
+
+2. **Brokers:**
+
+   - 这是Kafka集群中代理（broker）的列表，消费者将连接到这些代理以消费消息。每个代理的地址和端口号如下：
+     - `127.0.0.1:19092`
+     - `127.0.0.1:19093`
+     - `127.0.0.1:19094`
+   - `127.0.0.1`表示本地机器，端口号分别是19092、19093和19094。
+
+3. **Group: foo**
+
+   - 这是消费者组的名称。Kafka中的消费者组允许多个消费者协作消费同一个主题中的消息。每个消费者组都有一个唯一的名称。在这个例子中，消费者组的名称是`foo`。
+
+4. **Topic: test**
+
+   - 这是消费者将从中消费消息的主题（topic）的名称。在这个例子中，主题的名称是`test`。
+
+5. **Offset: first**
+
+   - 这是消费者开始消费消息的位置。`first`表示从主题的最早消息开始消费。其他可能的值包括`latest`，表示从最新的消息开始消费。
+
+6. **Consumers: 1**
+
+   - 这是消费者实例的数量。在这个例子中，只有一个消费者实例。
+
+## docker-compose
+
+```dockerfile
+kafka-server:
+image: bitnami/kafka:latest
+restart: always
+ports:
+- "9092:9092"
+environment:
+- ALLOW_PLAINTEXT_LISTENER=yes
+- KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
+- KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://10.0.0.3:9092
+depends_on:
+- zookeeper-server
+networks:
+fim_network:
+ipv4_address: 10.0.0.24
+```
+ALLOW_PLAINTEXT_LISTENER=yes: 允许Kafka使用明文（非加密）通信。
+KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181: 指定Kafka连接的Zookeeper服务器地址和端口。Zookeeper用于管理Kafka集群的元数据。
+KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://10.0.0.3:9092: 指定Kafka向外部广告的监听地址。（Kafka代理（broker）向客户端（如生产者和消费者）通告其可访问的网络地址和端口。具体来说，这意味着Kafka代理会告诉连接到它的客户端，它的网络地址是`10.0.0.3`，端口是`9092`，客户端应该使用这个地址和端口来与Kafka代理进行通信）
+
+## dockerfile
+
+```
+KqConsumerConf:
+  Name: kqConsumer
+  Brokers:
+    - 10.0.0.24:9092
+  Group: kqConsumer
+  Topic: log-topic
+  Offset: first
+  Consumers: 8
+  Processors: 8
+KqPusherConf:
+  Brokers:
+    - 10.0.0.22:9092
+  Topic: log-topic
+```
+todo
+
+
