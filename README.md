@@ -10,6 +10,8 @@
 
 [李文周的博客 | 总结Go语言学习之路，提供免费的Go语言学习教程，希望与大家一起学习进步。 (liwenzhou.com)](https://www.liwenzhou.com/)
 
+[Changkun Ou | Go 语言原本 (golang.design)](https://golang.design/under-the-hood/)
+
 
 
 # 文档网站
@@ -21,4 +23,3 @@
 [GORM - The fantastic ORM library for Golang, aims to be developer friendly.](https://gorm.io/zh_CN/)
 
 [go-zero 缩短从需求到上线的距离](https://go-zero.dev/)
-
